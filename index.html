@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4ede5" />
+  <title>محمد ويسرى | دعوة زفاف</title>
+  <meta name="description" content="الاثنين ٢١ / ١٢ / ٢٠٢٦ · من ٧ إلى ١١ مساءً · قاعة الماسة، الهرم" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mohamed-yousra-wedding.vercel.app/" />
+  <meta property="og:title" content="محمد ويسرى | دعوة زفاف" />
+  <meta property="og:description" content="الاثنين ٢١ / ١٢ / ٢٠٢٦ · من ٧ إلى ١١ مساءً · قاعة الماسة، الهرم" />
+  <meta property="og:image" content="https://mohamed-yousra-wedding.vercel.app/assets/og.jpg" />
+  <meta property="og:image:width" content="600" />
+  <meta property="og:image:height" content="1067" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://mohamed-yousra-wedding.vercel.app/assets/og.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/frame.jpg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="stage" id="stage">
+
+    <!-- 1) Opening: tap to open (unlocks the music on phones) -->
+    <section class="screen screen--open is-active" id="open" aria-label="افتح الدعوة">
+      <img class="frame-bg" src="assets/frame.jpg" alt="" />
+      <div class="open-content"><div class="inner">
+        <p class="open-kicker">دعوة زفاف</p>
+        <h1 class="open-names">
+          <span>محمد</span>
+          <span class="heart" aria-hidden="true">♡</span>
+          <span>يسرى</span>
+        </h1>
+        <p class="open-date">21 . 12 . 2026</p>
+        <button class="seal" id="openBtn" type="button">
+          <span class="seal-ring" aria-hidden="true"></span>
+          <span class="seal-text">اضغط لفتح الدعوة</span>
+        </button>
+      </div></div>
+    </section>
+
+    <!-- 2) The film -->
+    <section class="screen screen--film" id="film" aria-label="فيديو الدعوة">
+      <video id="video" src="assets/intro.mp4" poster="assets/intro-poster.jpg"
+             playsinline muted preload="auto"></video>
+      <button class="skip" id="skipBtn" type="button">تخطي ‹</button>
+    </section>
+
+    <!-- 3) The invitation card -->
+    <section class="screen screen--card" id="card" aria-label="الدعوة">
+      <img class="frame-bg" src="assets/frame.jpg" alt="" />
+      <div class="card-content"><div class="inner">
+        <div class="poem">
+          <p class="reveal">ما بين صدفةٍ جمعت الطرق</p>
+          <p class="reveal">وقدرٍ رتّب اللقاء</p>
+          <p class="reveal">كُتبت حكايةٌ</p>
+          <p class="reveal">كان للنصيب فيها</p>
+          <p class="reveal">أجمل بداية</p>
+        </div>
+
+        <div class="divider reveal" aria-hidden="true"><span></span>✦<span></span></div>
+
+        <h2 class="names reveal">
+          <span>محمد</span>
+          <span class="heart" aria-hidden="true">♡</span>
+          <span>يسرى</span>
+        </h2>
+
+        <p class="invite-line reveal">يتشرّفان بدعوتكم لحضور حفل زفافهما</p>
+
+        <div class="details">
+          <p class="detail reveal">
+            <span class="detail-value">الاثنين ٢١ / ١٢ / ٢٠٢٦</span>
+            <span class="detail-time">من الساعة ٧ حتى ١١ مساءً</span>
+          </p>
+          <p class="detail reveal">
+            <span class="detail-hall">قاعة الماسة</span>
+            <span class="detail-sub">محور اللبيني، نزلة البطران، الهرم، محافظة الجيزة</span>
+          </p>
+        </div>
+
+        <a class="location-btn reveal" href="https://share.google/sScVLsx86RBe7Xf7z"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+          موقع القاعة
+        </a>
+
+        <button class="replay reveal" id="replayBtn" type="button">↻ مشاهدة الفيديو مرة أخرى</button>
+      </div></div>
+    </section>
+
+  </main>
+
+  <button class="music-toggle" id="musicBtn" type="button" aria-label="إيقاف الموسيقى" hidden>
+    <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+  </button>
+
+  <audio id="song" src="assets/song.m4a" preload="auto" loop></audio>
+  <script src="app.js"></script>
+</body>
+</html>
