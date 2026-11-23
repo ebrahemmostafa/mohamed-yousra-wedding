@@ -19,7 +19,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:wght@400;700&family=Amiri+Quran&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" href="assets/frame.jpg" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -51,10 +51,35 @@
       <button class="skip" id="skipBtn" type="button">تخطي ‹</button>
     </section>
 
-    <!-- 3) The invitation card -->
+    <!-- 3) The invitation card: three pages inside the same frame -->
     <section class="screen screen--card" id="card" aria-label="الدعوة">
       <img class="frame-bg" src="assets/frame.jpg" alt="" />
-      <div class="card-content"><div class="inner">
+
+      <!-- 3a) Verse (the music pauses here) -->
+      <div class="card-content page" data-page="verse"><div class="inner inner--verse">
+        <p class="basmala reveal">بسم الله الرحمن الرحيم</p>
+        <div class="divider reveal" aria-hidden="true"><span></span>✦<span></span></div>
+        <p class="ayah reveal">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ ﴾</p>
+        <p class="ayah-ref reveal">سورة الروم · الآية ٢١</p>
+      </div></div>
+
+      <!-- 3b) The fathers' invitation -->
+      <div class="card-content page" data-page="fathers"><div class="inner inner--fathers">
+        <p class="lead reveal">بكل سرور ومحبة<br />يتشرّف</p>
+        <div class="fathers reveal">
+          <p class="father"><span class="father-title">السيد</span><span class="father-name">جميل علي الأهدل</span></p>
+          <span class="father-and" aria-hidden="true">و</span>
+          <p class="father"><span class="father-title">السيد</span><span class="father-name">محمد محسن الذيباني</span></p>
+        </div>
+        <p class="lead reveal">بدعوتكم لمشاركتهم<br />حفل زفاف أبنائهم</p>
+        <div class="divider reveal" aria-hidden="true"><span></span>✦<span></span></div>
+        <p class="groom reveal">محمد جميل الأهدل</p>
+        <p class="ala reveal">على</p>
+        <p class="bride reveal">ابنة محمد محسن الذيباني</p>
+      </div></div>
+
+      <!-- 3c) Poem, date, venue, location -->
+      <div class="card-content page" data-page="details"><div class="inner">
         <div class="poem">
           <p class="reveal">ما بين صدفةٍ جمعت الطرق</p>
           <p class="reveal">وقدرٍ رتّب اللقاء</p>
@@ -70,8 +95,6 @@
           <span class="heart" aria-hidden="true">♡</span>
           <span>يسرى</span>
         </h2>
-
-        <p class="invite-line reveal">يتشرّفان بدعوتكم لحضور حفل زفافهما</p>
 
         <div class="details">
           <p class="detail reveal">
@@ -90,8 +113,11 @@
           موقع القاعة
         </a>
 
-        <button class="replay reveal" id="replayBtn" type="button">↻ مشاهدة الفيديو مرة أخرى</button>
+        <button class="replay reveal" id="replayBtn" type="button">↻ مشاهدة الدعوة من البداية</button>
       </div></div>
+
+      <button class="next" id="nextBtn" type="button">التالي ‹</button>
+      <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
     </section>
 
   </main>

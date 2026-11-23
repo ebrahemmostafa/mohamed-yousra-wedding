@@ -1,10 +1,11 @@
 :root {
   --paper: #f4ede5;
-  --ink: #7a5a2e;          /* main text: deep antique gold */
-  --ink-soft: #9b7b4c;
-  --gold-1: #8a6532;
-  --gold-2: #c8a463;
-  --gold-3: #a47c3f;
+  --ink: #4a3215;          /* main text: deep brown-gold, readable on cream */
+  --ink-soft: #634722;
+  --gold-1: #553912;
+  --gold-2: #9c7433;
+  --gold-3: #74521f;
+  --accent: #b38a45;       /* lines, ornaments, buttons */
   --frame-ratio: 903 / 1600;
 }
 
@@ -127,17 +128,29 @@ body {
 .open-names { font-size: 12cqw; }
 .open-names span:not(.heart),
 .names span:not(.heart),
-.poem p {
+.poem p,
+.basmala,
+.groom {
   background: linear-gradient(170deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 70%, var(--gold-1) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* thin light edge so the gold lifts off the paper */
+  filter: drop-shadow(0 1px 0 rgba(255, 252, 245, .9)) drop-shadow(0 0 6px rgba(255, 250, 240, .8));
 }
 .heart {
   font-family: "Tajawal", sans-serif;
   font-size: .55em;
-  color: var(--gold-2);
+  color: var(--accent);
   transform: translateY(.1em);
+}
+/* soft light glow behind the text block */
+.inner {
+  background: radial-gradient(ellipse 62% 46% at 50% 52%, rgba(252, 248, 241, .92) 0%, rgba(252, 248, 241, .7) 55%, rgba(252, 248, 241, 0) 100%);
+}
+.open-kicker, .open-date,
+.detail, .lead, .father, .ala, .bride, .ayah, .ayah-ref, .replay {
+  text-shadow: 0 1px 0 rgba(255, 252, 245, .9), 0 0 8px rgba(255, 250, 240, .9);
 }
 .open-date {
   font-family: "Tajawal", sans-serif;
@@ -238,22 +251,146 @@ body {
   align-items: center;
   gap: 2.5cqw;
   margin: 3cqw 0 2cqw;
-  color: var(--gold-2);
+  color: var(--accent);
   font-size: 3.4cqw;
 }
 .divider span {
   width: 14cqw;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-2), transparent);
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
-.names { font-size: 10.5cqw; }
+.names { font-size: 10.5cqw; margin-bottom: 3cqw; }
 
-.invite-line {
-  font-size: 4.3cqw;
+/* ---------- pages inside the card ---------- */
+.page {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .9s ease, visibility 0s linear .9s;
+}
+.page.is-current {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .9s ease .2s, visibility 0s;
+}
+
+/* verse */
+.inner--verse { gap: 1cqw; }
+.basmala {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 8.4cqw;
+  line-height: 1.5;
+}
+.ayah {
+  font-family: "Amiri Quran", "Amiri", serif;
+  font-size: 6cqw;
+  line-height: 2.15;
+  color: var(--ink);
+  margin-top: 2cqw;
+}
+.ayah-ref {
+  font-family: "Amiri", serif;
+  font-size: 3.8cqw;
   color: var(--ink-soft);
-  margin: 0.5cqw 0 3.5cqw;
+  margin-top: 3cqw;
 }
+
+/* fathers' invitation */
+.inner--fathers { gap: .5cqw; }
+.lead {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 6.2cqw;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.fathers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 3cqw 0;
+}
+.father {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.35;
+}
+.father-title {
+  font-family: "Amiri", serif;
+  font-size: 4.4cqw;
+  color: var(--ink-soft);
+}
+.father-name {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 7cqw;
+  color: var(--gold-3);
+}
+.father-and {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 5.6cqw;
+  color: var(--accent);
+  margin: .5cqw 0;
+}
+.groom {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 9.4cqw;
+  line-height: 1.4;
+}
+.ala {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 5.6cqw;
+  color: var(--accent);
+}
+.bride {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 6.8cqw;
+  line-height: 1.5;
+  color: var(--gold-3);
+}
+
+/* next button + page dots */
+.next {
+  position: absolute;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  left: 50%;
+  translate: -50% 0;
+  z-index: 3;
+  font-family: "Tajawal", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  background: rgba(252, 248, 241, .9);
+  border: 1px solid rgba(116, 82, 31, .45);
+  border-radius: 999px;
+  padding: 6px 20px;
+  cursor: pointer;
+}
+.next[hidden] { display: none; }
+.dots {
+  position: absolute;
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 42px);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 3;
+  display: flex;
+  gap: 7px;
+}
+.on-last-page .dots { bottom: max(16px, env(safe-area-inset-bottom)); }
+.dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(116, 82, 31, .28);
+  transition: background .3s ease, transform .3s ease;
+}
+.dots i.is-on { background: var(--gold-3); transform: scale(1.25); }
 
 .details {
   display: flex;
@@ -268,25 +405,27 @@ body {
   line-height: 1.5;
 }
 .detail-value {
-  font-size: 5.4cqw;
+  font-size: 5.6cqw;
   font-weight: 700;
   color: var(--ink);
 }
 .detail-time {
-  font-size: 4.6cqw;
-  color: var(--ink);
+  font-size: 4.8cqw;
+  font-weight: 700;
+  color: var(--ink-soft);
 }
 .detail-hall {
   font-family: "Aref Ruqaa", serif;
   font-weight: 700;
-  font-size: 6.4cqw;
+  font-size: 6.8cqw;
   line-height: 1.3;
   color: var(--gold-3);
 }
 .detail-sub {
-  font-size: 3.9cqw;
+  font-size: 4.1cqw;
+  font-weight: 700;
   color: var(--ink-soft);
-  max-width: 56cqw;
+  max-width: 58cqw;
 }
 
 .location-btn {
@@ -301,7 +440,7 @@ body {
   font-size: 4.2cqw;
   color: #fffaf0;
   text-decoration: none;
-  background: linear-gradient(160deg, #c8a463, #9a7440);
+  background: linear-gradient(160deg, #b38a45, #74521f);
   box-shadow: 0 1cqw 3cqw rgba(122, 90, 46, .35);
   transition: transform .2s ease, box-shadow .2s ease;
 }
@@ -322,18 +461,18 @@ body {
   cursor: pointer;
 }
 
-/* line-by-line reveal */
+/* line-by-line reveal (opacity + movement only, so the text's own
+   light-edge filter is never overridden) */
 .reveal {
   opacity: 0;
   transform: translateY(2.5cqw);
-  filter: blur(4px);
 }
-.screen--card.is-active .reveal {
+.page.is-current .reveal {
   animation: rise .9s cubic-bezier(.2, .7, .2, 1) forwards;
-  animation-delay: calc(var(--i, 0) * 0.45s + .5s);
+  animation-delay: calc(var(--i, 0) * 0.45s + .6s);
 }
 @keyframes rise {
-  to { opacity: 1; transform: none; filter: none; }
+  to { opacity: 1; transform: none; }
 }
 
 /* ---------- music toggle ---------- */
@@ -371,5 +510,5 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .seal, .bars i { animation: none; }
-  .screen--card.is-active .reveal { animation-duration: .01s; animation-delay: 0s; }
+  .page.is-current .reveal { animation-duration: .01s; animation-delay: 0s; }
 }
