@@ -355,42 +355,6 @@ body {
   color: var(--gold-3);
 }
 
-/* next button + page dots */
-.next {
-  position: absolute;
-  bottom: max(16px, env(safe-area-inset-bottom));
-  left: 50%;
-  translate: -50% 0;
-  z-index: 3;
-  font-family: "Tajawal", sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--ink);
-  background: rgba(252, 248, 241, .9);
-  border: 1px solid rgba(116, 82, 31, .45);
-  border-radius: 999px;
-  padding: 6px 20px;
-  cursor: pointer;
-}
-.next[hidden] { display: none; }
-.dots {
-  position: absolute;
-  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 42px);
-  left: 50%;
-  translate: -50% 0;
-  z-index: 3;
-  display: flex;
-  gap: 7px;
-}
-.on-last-page .dots { bottom: max(16px, env(safe-area-inset-bottom)); }
-.dots i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(116, 82, 31, .28);
-  transition: background .3s ease, transform .3s ease;
-}
-.dots i.is-on { background: var(--gold-3); transform: scale(1.25); }
 
 .details {
   display: flex;
@@ -470,6 +434,11 @@ body {
 .page.is-current .reveal {
   animation: rise .9s cubic-bezier(.2, .7, .2, 1) forwards;
   animation-delay: calc(var(--i, 0) * 0.45s + .6s);
+}
+/* the verse is only on screen for 5 seconds, so it appears quickly */
+.page[data-page="verse"].is-current .reveal {
+  animation-duration: .7s;
+  animation-delay: calc(var(--i, 0) * 0.15s + .3s);
 }
 @keyframes rise {
   to { opacity: 1; transform: none; }
