@@ -9,6 +9,7 @@
   const video = document.getElementById("video");
   const song = document.getElementById("song");
   const musicBtn = document.getElementById("musicBtn");
+  const playBtn = document.getElementById("playBtn");
 
   // Flow:  tap → verse (silent, 5s) → film + song → fathers' invitation → details (stays)
   const VERSE_MS = 5000;
@@ -18,6 +19,7 @@
   let userMuted = false;   // the guest turned the music off with the button
   let pageTimer = null;
   let flowTimer = null;
+  let stallTimer = null;
   let fadeRaf = null;
 
   // stagger the reveal of the lines inside each page
@@ -65,6 +67,16 @@
     else reset();
   }
 
+  // Same for the film: some phones (iPhone Low Power Mode, some Android and
+  // in-app browsers) refuse to start a video that wasn't started by a tap.
+  function unlockVideo() {
+    video.muted = true;
+    const p = video.play();
+    const reset = () => { video.pause(); video.currentTime = 0; };
+    if (p) p.then(reset).catch(() => {});
+    else reset();
+  }
+
   function syncMusicButton() {
     musicBtn.classList.toggle("is-muted", userMuted);
     musicBtn.setAttribute("aria-label", userMuted ? "تشغيل الموسيقى" : "إيقاف الموسيقى");
@@ -105,19 +117,43 @@
     flowTimer = setTimeout(playFilm, VERSE_MS);
   }
 
+  // If the phone still blocks the film, show a big play button instead of
+  // skipping it: a tap on it is always allowed to start the video.
+  function showPlayButton() {
+    playBtn.hidden = false;
+  }
+
+  function startVideo() {
+    playBtn.hidden = true;
+    video.muted = true;
+    const p = video.play();
+    if (p) p.catch(showPlayButton);
+    // watchdog: if nothing is moving after a few seconds, offer the button
+    clearTimeout(stallTimer);
+    stallTimer = setTimeout(() => {
+      if (screens.film.classList.contains("is-active") && video.currentTime < 0.2) showPlayButton();
+    }, 3500);
+  }
+
   function playFilm() {
     clearTimeout(flowTimer);
     clearTimeout(pageTimer);
+    if (filmBroken) {             // couldn't load at all: keep the song, show the invitation
+      song.currentTime = 0;
+      showInvitation();
+      return;
+    }
     show("film");
     song.currentTime = 0;
     if (!userMuted) fadeSong(SONG_VOLUME, 600);
     video.currentTime = 0;
-    const p = video.play();
-    if (p) p.catch(() => showInvitation()); // if the video can't play, go straight on
+    startVideo();
   }
 
   function showInvitation() {
     clearTimeout(flowTimer);
+    clearTimeout(stallTimer);
+    playBtn.hidden = true;
     video.pause();
     show("card");
     goToPage(pageIndexOf("fathers"));
@@ -126,13 +162,26 @@
   document.getElementById("openBtn").addEventListener("click", () => {
     song.volume = SONG_VOLUME;
     unlockSong();
+    unlockVideo();
     musicBtn.hidden = false;
     syncMusicButton();
     showVerse();
   });
 
   video.addEventListener("ended", showInvitation);
-  video.addEventListener("error", showInvitation);
+  // file truly can't load on this phone: skip the film rather than get stuck
+  let filmBroken = false;
+  const onFilmError = () => {
+    filmBroken = true;
+    if (screens.film.classList.contains("is-active")) showInvitation();
+  };
+  video.addEventListener("error", onFilmError);
+  video.querySelector("source").addEventListener("error", onFilmError);
+  video.addEventListener("playing", () => { playBtn.hidden = true; });
+  playBtn.addEventListener("click", () => {
+    if (!userMuted) song.play().catch(() => {});      // this tap also re-allows the song
+    startVideo();
+  });
   document.getElementById("skipBtn").addEventListener("click", showInvitation);
   document.getElementById("replayBtn").addEventListener("click", showVerse);
 

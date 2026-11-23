@@ -46,8 +46,14 @@
 
     <!-- 2) The film -->
     <section class="screen screen--film" id="film" aria-label="فيديو الدعوة">
-      <video id="video" src="assets/intro.mp4" poster="assets/intro-poster.jpg"
-             playsinline muted preload="auto"></video>
+      <video id="video" poster="assets/intro-poster.jpg"
+             playsinline webkit-playsinline muted preload="auto">
+        <source src="assets/intro.mp4" type="video/mp4" />
+      </video>
+      <button class="play-film" id="playBtn" type="button" hidden>
+        <span class="play-icon" aria-hidden="true"></span>
+        <span>تشغيل الفيديو</span>
+      </button>
       <button class="skip" id="skipBtn" type="button">تخطي ‹</button>
     </section>
 
