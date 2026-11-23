@@ -502,6 +502,14 @@ body {
   50%      { transform: scaleY(1); }
 }
 
+/* ---------- render mode (recording the video version) ---------- */
+.render .screen,
+.render .page { transition: none !important; }
+.render .music-toggle,
+.render .location-btn,
+.render .replay,
+.render .skip { display: none !important; }
+
 @media (prefers-reduced-motion: reduce) {
   .seal, .bars i { animation: none; }
   .page.is-current .reveal { animation-duration: .01s; animation-delay: 0s; }

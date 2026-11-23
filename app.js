@@ -27,6 +27,17 @@
     page.querySelectorAll(".reveal").forEach((el, i) => el.style.setProperty("--i", i));
   });
 
+  // Render mode (?render=verse|fathers|details) is used to record the
+  // video version: one page, no buttons, no sound, no screen transitions.
+  const renderPage = new URLSearchParams(location.search).get("render");
+  if (renderPage) {
+    document.body.classList.add("render");
+    show("card");
+    const page = pages[pageIndexOf(renderPage)];
+    if (page) page.classList.add("is-current");
+    return;
+  }
+
   function show(name) {
     Object.entries(screens).forEach(([key, el]) => el.classList.toggle("is-active", key === name));
   }
